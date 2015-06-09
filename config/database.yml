@@ -2,14 +2,16 @@ development:
   adapter: postgresql
   encoding: unicode
   database: myflix_development
+  host: localhost
   pool: 5
-  username: YOUR_USERNAME
-  password: YOUR_PASSWORD
+  username: CRASH
+  password: 
 
 test:
   adapter: postgresql
   encoding: unicode
   database: myflix_test
+  host: localhost
   pool: 5
-  username: YOUR_USERNAME
-  password: YOUR_PASSWORD
+  username: CRASH
+  password: 
