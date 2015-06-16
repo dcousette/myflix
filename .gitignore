@@ -13,3 +13,9 @@
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
+
+# Ignore Cloud9 metadata files. 
+c9/
+
+#Ignore database config for Postgres - this is different for other environments
+config/database.yml
