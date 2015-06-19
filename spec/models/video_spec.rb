@@ -22,4 +22,17 @@ describe Video do
     #test if video has category
     expect(spaceballs.category).to eq(tv_comedies)
   end
+  
+  it 'will not save a video without a title' do
+    spaceballs = Video.create(title:'',
+                 description:'A funny space comedy!')
+    expect(Video.count).to eq(0)
+  end
+  
+  it 'will not save a video without a description' do 
+    spaceballs = Video.create(title:'Spaceballs',
+                 description:'')
+    
+    expect(Video.count).to eq(0)
+  end
 end
