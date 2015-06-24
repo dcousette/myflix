@@ -4,7 +4,7 @@ describe Category do
   it 'saves itself' do
     tv_comedies = Category.new(name:'TV Comedies')
     tv_comedies.save 
-    Category.first.name = 'TV Comedies'
+    Category.first.name.should == 'TV Comedies'
   end
 
   it 'has many videos' do 
@@ -24,7 +24,7 @@ describe Category do
                  category: tv_comedies)  
 
     #check that category videos is > 1
-    #alt syntax
+    # using alt syntax
     expect(tv_comedies.videos).to eq([et, spaceballs, goonies])
   end
 end
