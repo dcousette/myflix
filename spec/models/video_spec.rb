@@ -7,14 +7,12 @@ describe Video do
   
   describe "search_by_title" do 
     it 'returns an empty array if there is no match' do 
-      #create videos
       futurama = Video.create(title:"Futurama", 
                               description:"It's about the Future, duh!")
       
       back_to_future = Video.create(title:"Back to the Future", 
                               description:"Michael J Fox!")
-      #action 
-      #verify / assert
+                              
       expect(Video.search_by_title("Pacman")).to eq([])
     end
     
