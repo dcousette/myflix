@@ -10,6 +10,8 @@ gem 'uglifier'
 gem 'jquery-rails'
 gem 'pg'
 gem 'bundler'
+gem 'bcrypt'
+gem 'bootstrap_form'
 
 group :development do
   gem 'thin'

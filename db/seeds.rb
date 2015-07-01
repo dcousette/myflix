@@ -64,3 +64,4 @@ Video.create(title:'Family Guy',
              large_cover_url:'/public/tmp/family_guy.jpg',
              category: tv_comedies)
              
+User.create(email_address: 'dcousette@gmail.com', password: 'dcousette', full_name: 'DeShawn Cousette')
