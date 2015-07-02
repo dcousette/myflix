@@ -1,7 +1,7 @@
 %section.sign_in.container
   .row
     .col-sm-10.col-sm-offset-1
-      = bootstrap_form_tag(url: '/signin', class: 'sign_in') do |f|
+      = bootstrap_form_tag(url: signin_path, class: 'sign_in') do |f|
         %header
           %h1 Sign in
         %fieldset
