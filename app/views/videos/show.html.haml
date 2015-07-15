@@ -12,7 +12,25 @@
 %section.reviews.container 
   .row 
     .col-sm-10.col-sm-offset-1
-      %form
+      = form_for @review do |f|
+        .form-group 
+          = f.label :rating, "Rate this Video"
+          .row
+            .col-sm-3
+              = f.select :rating, [["1 Star", 1], ["2 Stars", 2], ["3 Stars", 3],
+                                          ["4 Stars", 4], ["5 Stars", 5]], 
+                                          { prompt: 'Choose a rating' }, { class: 'form-control' }
+                                          
+        .form-group
+          .row 
+            .col-sm-8
+              = f.label :content, "Write Review"
+              = f.text_area :content, rows: 6, class: 'form-control'
+           
+        .form-group.actions.clearfix
+          = f.submit class:'btn'
+          %a Cancel 
+          
       %header
         %h3 User Reviews (#{@reviews.count})
       %ul 
