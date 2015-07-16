@@ -1,20 +1,22 @@
 class ReviewsController < ApplicationController
-  before_action :require_login, only: :create 
+  before_action :require_login, only: :create
+  
   def create
-    @review = Review.new(review_params)
-    @review.user_id = current_user.id
+    @video = Video.find(params[:video_id])
+    @review = @video.reviews.build(review_params)
+    @review.user = current_user 
     
-    if @review.save
-      flash[:notice] = 'Review saved'
-      redirect_to videos_path
+    if @review.save 
+      redirect_to @video 
     else
-      redirect_to home_path
+      @reviews = @video.reviews.reload 
+      render 'videos/show'
     end
   end
   
   private 
   
   def review_params
-    params.require(:review).permit(:user_id, :video_id, :rating, :content)
+    params.require(:review).permit(:rating, :content)
   end
 end

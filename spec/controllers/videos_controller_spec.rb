@@ -15,7 +15,7 @@ describe VideosController do
       review1 = Fabricate(:review, video: video)
       review2 = Fabricate(:review, video: video)
       get :show, id: video.id
-      expect(assigns(:reviews)).to match_array([review1, review2])
+      expect(assigns(:reviews)).to match_array([review2, review1])
     end
     
     it 'sets up the @review variable for authenticated users' do 
