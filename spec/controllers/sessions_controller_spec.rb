@@ -18,7 +18,6 @@ describe SessionsController do
   describe 'POST create' do 
     context 'with valid credentials' do
       before do 
-        # alice = Fabricate(:user)
         post :create, email_address: alice.email_address, password: alice.password
       end
       
@@ -52,7 +51,7 @@ describe SessionsController do
       end 
       
       it 'sets the notice' do 
-        expect(flash[:danger]).not_to be_nil
+        expect(flash[:danger]).to be_present 
       end 
     end
   end
