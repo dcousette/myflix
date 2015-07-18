@@ -8,7 +8,9 @@ Myflix::Application.routes.draw do
   
   root to: 'static_pages#home'
   
-  resources :videos do 
+  resources :videos do
+    resources :reviews, only: [:new, :create]
+    
     collection do 
       post 'search'
     end

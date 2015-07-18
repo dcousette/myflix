@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
   
-  helper_method :logged_in?
+  helper_method :logged_in?, :current_user
   
   def current_user 
     @current_user ||= User.find(session[:user_id]) if session[:user_id]
@@ -14,7 +14,7 @@ class ApplicationController < ActionController::Base
   def require_login
     if !logged_in?
       flash[:danger] = "Please sign in first"
-      redirect_to root_path
+      redirect_to signin_path
     end
   end
 end
