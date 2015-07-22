@@ -9,7 +9,7 @@ Myflix::Application.routes.draw do
   
   root to: 'static_pages#home'
   
-  resources :queue_items, only: :create 
+  resources :queue_items, only: [:create, :destroy]
   resources :videos do
     resources :reviews, only: [:new, :create]
     
