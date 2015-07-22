@@ -4,4 +4,16 @@ class QueueItemsController < ApplicationController
   def index
     @queue_items = current_user.queue_items
   end
+  
+  def create
+    @video = Video.find(params[:video_id])
+    @queue_item = @video.queue_items.new 
+    @queue_item.user = User.find(params[:user_id])
+    
+    if @queue_item.save 
+      redirect_to my_queue_path
+    else 
+      redirect_to video_path(@video)
+    end
+  end
 end
