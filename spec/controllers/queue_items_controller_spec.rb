@@ -20,7 +20,7 @@ describe QueueItemsController do
   end
   
   describe 'POST create' do 
-    it 'redirects to the queue items page' do 
+    it 'redirects to the my queue page' do 
       user1 = Fabricate(:user)
       session[:user_id] = user1.id 
       post :create, video_id: Fabricate(:video).id, user_id: user1.id
@@ -54,8 +54,11 @@ describe QueueItemsController do
       user1 = Fabricate(:user)
       video = Fabricate(:video)
       session[:user_id] = user1.id
-      post :create, video_id: video.id, user_id: user1.id
-      expect(assigns(:queue_item)).to eq(user1.queue_items.last)
+      Fabricate(:queue_item, video_id: video.id, user_id: user1.id)
+      simpsons = Fabricate(:video)
+      post :create, video_id: simpsons.id, user_id: user1.id
+      simpsons_queue_item = QueueItem.where(video_id: simpsons.id, user_id: user1.id).first
+      expect(simpsons_queue_item.position).to eq(2)
     end
     
     it 'does not add the video if the video is already in the queue' do 
