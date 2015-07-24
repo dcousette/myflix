@@ -1,19 +1,17 @@
 class QueueItem < ActiveRecord::Base
   belongs_to :user 
   belongs_to :video 
-  
+
   delegate :category, to: :video
   delegate :title, to: :video, prefix: :video 
   
-  validates_uniqueness_of :video_id, scope: :user_id
-  
   def rating
-    review = Review.where(user_id: user.id, video_id: video.id).first
+    review = Review.find_by(user_id: user.id, video_id: video.id)
     
     review.rating if review 
   end
   
   def category_name
     category.name
-  end 
+  end
 end

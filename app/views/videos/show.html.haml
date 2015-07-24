@@ -9,7 +9,7 @@
           %span Rating: 4.5/5.0
         %p= @video.description
         .actions
-          = link_to "+ My Queue", queue_items_path(video_id: @video.id, user_id: current_user.id), 
+          = link_to "+ My Queue", queue_items_path(video_id: @video.id), 
                                   method: :post, class:'btn btn-default'
 
 %section.reviews.container 

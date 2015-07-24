@@ -6,16 +6,9 @@ class QueueItemsController < ApplicationController
   end
   
   def create
-    @video = Video.find(params[:video_id])
-    @queue_item = @video.queue_items.new 
-    @queue_item.user = User.find(params[:user_id])
-    @queue_item.position = queue_item_count
-    
-    if @queue_item.save 
-      redirect_to my_queue_path
-    else 
-      redirect_to video_path(@video)
-    end
+    video = Video.find(params[:video_id])
+    queue_item_create(video)                 
+    redirect_to my_queue_path
   end
   
   def destroy
@@ -28,5 +21,14 @@ class QueueItemsController < ApplicationController
   
     def queue_item_count
       current_user.queue_items.count + 1
+    end
+    
+    def contains_current_queue_item?(video)
+      current_user.queue_items.map(&:video).include?(video)
+    end
+    
+    def queue_item_create(video)
+      QueueItem.create(video: video, user: current_user, 
+                       position: queue_item_count) unless contains_current_queue_item?(video)
     end
 end
