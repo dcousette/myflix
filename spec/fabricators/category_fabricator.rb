@@ -1,3 +1,3 @@
-Fabricator(:category) do 
-  name 'Thriller'
+Fabricator(:category) do
+  name { Faker::Lorem.word }
 end

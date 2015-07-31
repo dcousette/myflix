@@ -1,13 +1,15 @@
 Myflix::Application.routes.draw do
-  get  'ui(/:action)', controller: 'ui'
-  get  'home', to: 'videos#index'
-  get  'register', to: 'users#new'
-  get  'signin', to: 'sessions#new'
-  post 'signin', to: 'sessions#create'
+  get     'ui(/:action)', controller: 'ui'
+  get     'home', to: 'videos#index'
+  get     'register', to: 'users#new'
+  get     'signin', to: 'sessions#new'
+  post    'signin', to: 'sessions#create'
   delete  'signout', to: 'sessions#destroy'
+  get     'my_queue', to: 'queue_items#index'
   
   root to: 'static_pages#home'
   
+  resources :queue_items, only: [:create, :destroy]
   resources :videos do
     resources :reviews, only: [:new, :create]
     
