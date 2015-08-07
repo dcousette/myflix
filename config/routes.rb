@@ -6,6 +6,7 @@ Myflix::Application.routes.draw do
   post    'signin', to: 'sessions#create'
   delete  'signout', to: 'sessions#destroy'
   get     'my_queue', to: 'queue_items#index'
+  post    'update_queue', to: 'queue_items#update_queue'
   
   root to: 'static_pages#home'
   
