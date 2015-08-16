@@ -9,7 +9,7 @@ describe SessionsController do
     end
     
     it 'redirects to the home page for authenticated users' do 
-      session[:user_id] = Fabricate(:user).id
+      setup_current_user
       get :new 
       expect(response).to redirect_to home_path
     end
@@ -21,7 +21,7 @@ describe SessionsController do
         post :create, email_address: alice.email_address, password: alice.password
       end
       
-      let(:alice) {Fabricate(:user)}
+      let(:alice) { Fabricate(:user) }
       
       it 'puts the signed in user in the session' do 
         expect(session[:user_id]).to eq(alice.id)
@@ -58,7 +58,7 @@ describe SessionsController do
   
   describe 'DELETE destroy' do 
     before do 
-      session[:user_id] = Fabricate(:user).id
+      setup_current_user
       delete :destroy
     end
     
