@@ -10,7 +10,7 @@
         %p= @video.description
         .actions
           = link_to "+ My Queue", queue_items_path(video_id: @video.id), 
-                                  method: :post, class:'btn btn-default'
+                                  method: :post, class:'btn btn-default' unless current_user.queued_video?(@video)
 
 %section.reviews.container 
   .row 
@@ -20,9 +20,8 @@
           = f.label :rating, "Rate this Video"
           .row
             .col-sm-3
-              = f.select :rating, options_for _select([1,2,3,4,5].map{|p| [pluralize(p, "Star")]}), 
-                                          { prompt: 'Choose a rating' }, { class: 'form-control' }
-                                          
+              = f.select :rating, options_for_video_reviews( star_count_options ), 
+                                  { prompt: 'Choose a rating' }, class: 'form-control' 
         .form-group
           .row 
             .col-sm-8
