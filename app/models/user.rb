@@ -3,7 +3,7 @@ class User < ActiveRecord::Base
   validates_uniqueness_of :email_address
   has_secure_password validations: false
   has_many :queue_items, -> { order('position ASC') } 
-  has_many :reviews 
+  has_many :reviews , -> { order('created_at DESC') } 
   
   def normalize_queue_item_position
     queue_items.each_with_index do |queue_item, index|
