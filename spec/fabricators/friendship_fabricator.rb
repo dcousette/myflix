@@ -1,0 +1,3 @@
+Fabricator(:friendship) do 
+  
+end

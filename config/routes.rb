@@ -7,9 +7,10 @@ Myflix::Application.routes.draw do
   delete  'signout', to: 'sessions#destroy'
   get     'my_queue', to: 'queue_items#index'
   post    'update_queue', to: 'queue_items#update_queue'
-  
+  get     'people', to: 'friendships#index'
   root to: 'static_pages#home'
   
+  resources :friendships, only: [:destroy]
   resources :queue_items, only: [:create, :destroy]
   resources :videos do
     resources :reviews, only: [:new, :create]

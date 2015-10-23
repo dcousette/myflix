@@ -4,6 +4,8 @@ class User < ActiveRecord::Base
   has_secure_password validations: false
   has_many :queue_items, -> { order('position ASC') } 
   has_many :reviews , -> { order('created_at DESC') } 
+  has_many :following_friendships, class_name: 'Friendship', foreign_key: :follower_id
+  
   
   def normalize_queue_item_position
     queue_items.each_with_index do |queue_item, index|
