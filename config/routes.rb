@@ -10,7 +10,7 @@ Myflix::Application.routes.draw do
   get     'people', to: 'friendships#index'
   root to: 'static_pages#home'
   
-  resources :friendships, only: [:destroy]
+  resources :friendships, only: [:destroy, :create]
   resources :queue_items, only: [:create, :destroy]
   resources :videos do
     resources :reviews, only: [:new, :create]

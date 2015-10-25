@@ -23,4 +23,8 @@ class User < ActiveRecord::Base
   def queue_item_count 
     queue_items.count 
   end
+  
+  def follows?(user)
+    following_friendships.map(&:leader_id).include?(user.id)
+  end
 end

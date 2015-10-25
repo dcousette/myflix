@@ -49,4 +49,43 @@ describe FriendshipsController do
       expect(Friendship.count).to eq(1)
     end
   end
+  
+  describe 'POST create' do
+    it_behaves_like 'require_sign_in' do 
+      let(:action) { post :create, leader_id: 2}  
+    end 
+    
+    it 'creates a friendship with the current user as the follower and the selected user as leader' do 
+      john = Fabricate(:user)
+      jane = Fabricate(:user)
+      setup_current_user(john)
+      post :create, leader_id: jane.id 
+      expect(Friendship.count).to eq(1)
+    end
+    
+    it 'redirects to the people page' do 
+      john = Fabricate(:user)
+      jane = Fabricate(:user)
+      setup_current_user(john)
+      post :create, leader_id: jane.id 
+      expect(response).to redirect_to people_path
+    end
+    
+    it 'does not create a friendship if the current user is already following the user' do 
+      john = Fabricate(:user)
+      jane = Fabricate(:user)
+      setup_current_user(john)
+      friends = Fabricate(:friendship, leader: jane, follower: john)
+      post :create, leader_id: jane.id 
+      expect(Friendship.count).to eq(1)
+    end
+    
+    it 'a user cannot follow themselves' do
+      john = Fabricate(:user)
+      jane = Fabricate(:user)
+      setup_current_user(john)
+      post :create, leader_id: john.id 
+      expect(Friendship.count).to eq(0)
+    end
+  end
 end
