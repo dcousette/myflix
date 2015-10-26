@@ -4,7 +4,7 @@ describe QueueItemsController do
   describe 'GET index' do 
     it 'sets @queue_items to the queue_items of the logged in user' do 
       alice = Fabricate(:user)
-      setup_current_user(alice)
+      set_current_user(alice)
       video1 = Fabricate(:video)
       video2 = Fabricate(:video)
       queue_item1 = Fabricate(:queue_item, user: alice, video: video1)
@@ -23,7 +23,7 @@ describe QueueItemsController do
     let(:user1){ Fabricate(:user) }
     let(:video){ Fabricate(:video) }
     
-    before { setup_current_user(user1) }
+    before { set_current_user(user1) }
     
     it 'redirects to the my queue page' do
       post :create, video_id: Fabricate(:video).id
@@ -69,7 +69,7 @@ describe QueueItemsController do
     let(:video){ Fabricate(:video) }
     let(:my_item){ Fabricate(:queue_item, video: video, user: user1) }
     
-    before { setup_current_user(user1) }
+    before { set_current_user(user1) }
     
     it 'removes the queue item from the database' do 
       delete :destroy, id: my_item.id 
@@ -110,7 +110,7 @@ describe QueueItemsController do
       let(:queue_item2) { Fabricate(:queue_item, user: alice, position: 2, video: video ) }
       
       before do 
-        setup_current_user(alice)
+        set_current_user(alice)
       end
       
       it 'redirects to the myqueue page' do 
@@ -136,7 +136,7 @@ describe QueueItemsController do
       let(:queue_item2) { Fabricate(:queue_item, user: alice, position: 2, video: video ) }
       
       before do 
-        setup_current_user(alice) 
+        set_current_user(alice) 
       end
       
       it 'redirects to the myqueue page' do 
@@ -160,7 +160,7 @@ describe QueueItemsController do
         alice = Fabricate(:user)
         john = Fabricate(:user)
         video = Fabricate(:video)
-        setup_current_user(alice)
+        set_current_user(alice)
         queue_item1 = Fabricate(:queue_item, user: john, position: 1, video: video)
         queue_item2 = Fabricate(:queue_item, user: alice, position: 2, video: video)
         post :update_queue, queue_items: [{id: queue_item1.id, position: 2 }, {id: queue_item2.id, position: 1 }]
@@ -175,6 +175,3 @@ describe QueueItemsController do
     end
   end
 end 
-
-
-

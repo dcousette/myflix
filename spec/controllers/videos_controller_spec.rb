@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe VideosController do
-  before { setup_current_user }
+  before { set_current_user }
   let(:video) { Fabricate(:video) }
   
   describe 'GET show' do

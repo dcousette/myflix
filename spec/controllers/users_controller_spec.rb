@@ -44,7 +44,7 @@ describe UsersController do
     end
     
     it 'sets a user from the database in @user' do 
-      setup_current_user
+      set_current_user
       user = Fabricate(:user) 
       get :show, id: user.id
       expect(assigns(:user)).to eq(user)

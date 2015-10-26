@@ -10,11 +10,11 @@ class FriendshipsController < ApplicationController
     
     if current_user.follows?(leader)
       flash[:danger] = "You already follow #{leader.full_name}!" 
-      redirect_to people_path
     else 
       Friendship.create(leader: leader, follower: current_user) unless leader == current_user
-      redirect_to people_path
     end
+    
+    redirect_to people_path
   end
   
   def destroy
