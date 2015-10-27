@@ -9,6 +9,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     
     if @user.save 
+      AppMailer.send_welcome_email(@user).deliver 
       redirect_to signin_path
     else 
       render :new
