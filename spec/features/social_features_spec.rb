@@ -10,10 +10,11 @@ feature "Social networking" do
     jane_review = Fabricate(:review, video: futurama, user: jane)
     
     sign_in(joe)
-    find("a[href='/videos/#{futurama.id}']").click 
+    click_on_video_from_home_page(futurama)
     click_on jane_review.user.full_name
     click_on 'Follow'
-    expect(current_path).to eq(people_path)
+    
+    expect(page).to have_content jane_review.user.full_name
   end
   
   scenario "unfollowing a user" do 
@@ -21,7 +22,17 @@ feature "Social networking" do
     
     sign_in(joe)
     click_on 'People'
-    find("a[href='/friendships/#{friends.id}']").click
-    expect(current_path).to eq(people_path)
+    click_on_friendship(friends)
+  
+    expect(page).to have_no_content(user_path(jane)) 
+  end
+  
+  def click_on_friendship(friendship)
+    find("a[href='/friendships/#{friendship.id}']").click
+  end
+
+  def click_on_video_from_home_page(video)
+    find("a[href='/videos/#{video.id}']").click 
   end
 end
+
