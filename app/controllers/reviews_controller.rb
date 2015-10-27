@@ -9,7 +9,7 @@ class ReviewsController < ApplicationController
     if @review.save 
       redirect_to @video 
     else
-      @reviews = @video.reviews.reload 
+      @reviews = @video.reviews.reload
       render 'videos/show'
     end
   end

@@ -23,6 +23,10 @@ class QueueItem < ActiveRecord::Base
     category.name
   end
   
+  def video_title
+    video.title   
+  end
+  
   private 
   
   def review

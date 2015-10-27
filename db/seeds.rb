@@ -12,60 +12,60 @@ reality_tv  = Category.create(name:"Reality TV")
 
 futurama = Video.create(title:'Futurama', 
              description:'A funny cartoon show set in the future.', 
-             small_cover_url:'public/tmp/futurama.jpg', 
-             large_cover_url:'public/tmp/futurama.jpg',
+             small_cover_url:'futurama.jpg', 
+             large_cover_url:'monk_large.jpg',
              category: tv_dramas)
 
-Video.create(title:'Family Guy', 
+family_guy = Video.create(title:'Family Guy', 
              description:'A cartoon about a baby named Stuey', 
-             small_cover_url:'public/tmp/family_guy.jpg', 
-             large_cover_url:'public/tmp/family_guy.jpg',
+             small_cover_url:'family_guy.jpg', 
+             large_cover_url:'monk_large.jpg',
              category: tv_comedies)
 
-Video.create(title:'South Park', 
+south_park = Video.create(title:'South Park', 
              description:'A cartoon about some bad little kids.', 
-             small_cover_url:'public/tmp/south_park.jpg', 
-             large_cover_url:'public/tmp/south_park.jpg',
+             small_cover_url:'south_park.jpg', 
+             large_cover_url:'monk_large.jpg',
              category: reality_tv)
 
 Video.create(title:'Family Guy', 
              description:'A cartoon about a baby named Stuey', 
-             small_cover_url:'public/tmp/family_guy.jpg', 
-             large_cover_url:'public/tmp/family_guy.jpg',
+             small_cover_url:'family_guy.jpg', 
+             large_cover_url:'monk_large.jpg',
+             category: tv_comedies)
+   
+Video.create(title:'Family Guy', 
+             description:'A cartoon about a baby named Stuey', 
+             small_cover_url:'family_guy.jpg', 
+             large_cover_url:'monk_large.jpg',
+             category: tv_comedies)
+             
+Video.create(title:'Family Guy', 
+             description:'A cartoon about a baby named Stuey', 
+             small_cover_url:'family_guy.jpg', 
+             large_cover_url:'monk_large.jpg',
              category: tv_comedies)
 
 Video.create(title:'Family Guy', 
              description:'A cartoon about a baby named Stuey', 
-             small_cover_url:'public/tmp/family_guy.jpg', 
-             large_cover_url:'public/tmp/family_guy.jpg',
+             small_cover_url:'family_guy.jpg', 
+             large_cover_url:'monk_large.jpg',
+             category: tv_comedies)   
+Video.create(title:'Family Guy', 
+             description:'A cartoon about a baby named Stuey', 
+             small_cover_url:'family_guy.jpg', 
+             large_cover_url:'monk_large.jpg',
              category: tv_comedies)
              
 Video.create(title:'Family Guy', 
              description:'A cartoon about a baby named Stuey', 
-             small_cover_url:'public/tmp/family_guy.jpg', 
-             large_cover_url:'public/tmp/family_guy.jpg',
-             category: tv_comedies)
-             
-Video.create(title:'Family Guy', 
-             description:'A cartoon about a baby named Stuey', 
-             small_cover_url:'public/tmp/family_guy.jpg', 
-             large_cover_url:'public/tmp/family_guy.jpg',
-             category: tv_comedies)
-
-Video.create(title:'Family Guy', 
-             description:'A cartoon about a baby named Stuey', 
-             small_cover_url:'public/tmp/family_guy.jpg', 
-             large_cover_url:'public/tmp/family_guy.jpg',
-             category: tv_comedies)
-             
-Video.create(title:'Family Guy', 
-             description:'A cartoon about a baby named Stuey', 
-             small_cover_url:'public/tmp/family_guy.jpg', 
-             large_cover_url:'public/tmp/family_guy.jpg',
+             small_cover_url:'family_guy.jpg', 
+             large_cover_url:'monk_large.jpg',
              category: tv_comedies)
              
 deshawn = User.create(email_address: 'dcousette@gmail.com', password: 'dcousette', full_name: 'DeShawn Cousette')
+niven = User.create(email_address: 'niven@gmail.com', password: 'niven', full_name: 'Niven Cousette')
 
 Review.create(user: deshawn, video: futurama, rating: 5, content:'This movie is so awesome. I really liked it!')
 Review.create(user: deshawn, video: futurama, rating: 1, content:'This movie is so bad. I really hated it!')
-
+Review.create(user: niven, video: south_park, rating: 5, content:'This makes me laugh so hard!')
