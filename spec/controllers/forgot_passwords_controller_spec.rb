@@ -23,6 +23,7 @@ describe ForgotPasswordsController do
       end
       
       it 'sends an email to the email address' do
+        Fabricate(:user, email_address: "joe@example.com") 
         post :create, email_address: "joe@example.com"
         expect(ActionMailer::Base.deliveries.last.to).to eq(["joe@example.com"])
       end 
