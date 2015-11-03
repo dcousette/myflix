@@ -7,6 +7,6 @@
           %p We will send you an email with a link that you can use to reset your password.
         .form-group 
           = label_tag :email_address, "Email Address" 
-          = text_field_tag :email_address, nil, class: 'form-control' 
+          = email_field_tag :email_address, nil, class: 'form-control' 
         .form-group.action
           = submit_tag "Send Email", class: 'btn btn-default' 
