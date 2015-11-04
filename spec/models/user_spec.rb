@@ -1,3 +1,5 @@
+require "spec_helper"
+
 describe User do 
   it { should validate_presence_of(:email_address) }  
   it { should validate_presence_of(:password) }  
@@ -5,7 +7,12 @@ describe User do
   it { should validate_uniqueness_of(:email_address) }  
   it { should have_many(:queue_items).order('position ASC') }
   it { should have_many(:reviews).order('created_at DESC') }
- 
+  
+  it 'generates a random token when the user' do 
+    joe = Fabricate(:user)
+    expect(joe.token).to be_present 
+  end
+  
   describe "#queued_video?" do 
     it "returns true if the current user has queued the video" do 
       video = Fabricate(:video)
