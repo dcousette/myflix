@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
   has_many :reviews , -> { order('created_at DESC') } 
   has_many :following_friendships, class_name: 'Friendship', foreign_key: :follower_id
   
-  before_create :generate_token 
+  before_create :generate_token
   
   def normalize_queue_item_position
     queue_items.each_with_index do |queue_item, index|

@@ -2,7 +2,7 @@ class PasswordResetsController < ApplicationController
   def show
     user = User.find_by(token: params[:id])
     
-    if user 
+    if user
       @token = user.token
     else 
       redirect_to expired_token_path
@@ -12,10 +12,9 @@ class PasswordResetsController < ApplicationController
   def create
     user = User.find_by(token: params[:token]) 
     
-    if user 
+    if user && user.update(password: params[:password])
       user.generate_token 
-      user.update(password: params[:password])
-  
+      user.save
       flash[:success] = "Your password has been changed. Please sign in."
       redirect_to signin_path
     else 

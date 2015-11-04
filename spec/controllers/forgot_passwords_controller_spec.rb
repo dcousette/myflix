@@ -27,6 +27,12 @@ describe ForgotPasswordsController do
         post :create, email_address: "joe@example.com"
         expect(ActionMailer::Base.deliveries.last.to).to eq(["joe@example.com"])
       end 
+      
+      it 'generates a token for the user' do 
+        joe = Fabricate(:user, email_address: "joe@example.com") 
+        post :create, email_address: "joe@example.com"
+        expect(joe.token).to be_present 
+      end
     end
     
     context 'with non existing email' do
