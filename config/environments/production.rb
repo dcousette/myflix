@@ -27,4 +27,6 @@ Myflix::Application.configure do
     password:             ENV['gmail_password'],
     authentication:       'plain',
     enable_starttls_auto: true  }
+    
+  config.action_mailer.default_url_options = { host: 'obscure-beach-4009.herokuapp.com' }
 end
