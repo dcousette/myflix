@@ -10,6 +10,9 @@ describe UsersController do
 
   describe 'POST create' do
     context 'with valid input' do
+      let(:alice) { Fabricate(:user) }
+      let(:invitation) { Fabricate(:invitation, inviter: alice,
+                              recipient_email: 'joe@example.com') }
 
       it 'creates the user' do
         post :create, user: Fabricate.attributes_for(:user)
@@ -22,9 +25,6 @@ describe UsersController do
       end
 
       it 'makes the user follow the inviter' do
-        alice = Fabricate(:user)
-        invitation = Fabricate(:invitation, inviter: alice,
-                                recipient_email: 'joe@example.com')
         post :create, user: { email_address: 'joe@example.com', password: 'mypassword',
                               full_name: 'Joe Blow' }, invitation_token: invitation.token
         joe = User.find_by(email_address: 'joe@example.com')
@@ -32,9 +32,6 @@ describe UsersController do
       end
 
       it 'makes the inviter follow the user' do
-        alice = Fabricate(:user)
-        invitation = Fabricate(:invitation, inviter: alice,
-                                recipient_email: 'joe@example.com')
         post :create, user: { email_address: 'joe@example.com', password: 'mypassword',
                               full_name: 'Joe Blow' }, invitation_token: invitation.token
         joe = User.find_by(email_address: 'joe@example.com')
@@ -42,9 +39,6 @@ describe UsersController do
       end
 
       it 'expires the invitation after acceptance' do
-        alice = Fabricate(:user)
-        invitation = Fabricate(:invitation, inviter: alice,
-                                recipient_email: 'joe@example.com')
         post :create, user: { email_address: 'joe@example.com', password: 'mypassword',
                               full_name: 'Joe Blow' }, invitation_token: invitation.token
         expect(invitation.reload.token).to be_nil

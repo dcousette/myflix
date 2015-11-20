@@ -42,4 +42,9 @@ class User < ActiveRecord::Base
   def follow(another_user)
     following_friendships.create(leader: another_user) if can_follow?(another_user)
   end
+
+  def follow_each_other(user)
+    self.follow(user)
+    user.follow(self)
+  end
 end
