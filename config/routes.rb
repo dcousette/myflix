@@ -8,6 +8,7 @@ Myflix::Application.routes.draw do
   get     'my_queue', to: 'queue_items#index'
   post    'update_queue', to: 'queue_items#update_queue'
   get     'people', to: 'friendships#index'
+  get     'register/:token', to: 'users#new_with_invitation_token', as: 'register_with_token'
   root to: 'static_pages#home'
 
   resources :friendships, only: [:destroy, :create]
