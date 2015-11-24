@@ -5,7 +5,7 @@
     %ul.col-md-4.clearfix
       %li= link_to "Videos", videos_path
       %li= link_to "My Queue", my_queue_path
-      %li= link_to "People", people_path 
+      %li= link_to "People", people_path
     = form_tag search_videos_path, class: "col-md-5 for-search" do
       %input.search-query(type="text" placeholder="Search for videos here" name="search_term")
       %button.btn(type="submit") Search
@@ -17,7 +17,7 @@
             %b.caret
           %ul.dropdown-menu(role="menu" aria-labelledby="dlabel")
             %li
+              = link_to 'Invite a friend', invite_path
               = link_to 'Account'
               = link_to 'Plan and Billing'
-              = link_to 'Sign Out', signout_path, method: :delete 
- 
+              = link_to 'Sign Out', signout_path, method: :delete
