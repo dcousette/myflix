@@ -1,0 +1,19 @@
+machine:
+  ruby:
+    version: 2.1.7
+deployment:
+  production:
+    branch: master
+    commands:
+      - heroku maintenance:on --app obscure-beach-4009
+      - heroku pg:backups capture --app obscure-beach-4009
+      - git push git@heroku.com:obscure-beach-4009.git $CIRCLE_SHA1:refs/heads/master
+      - heroku run rake db:migrate --app obscure-beach-4009
+      - heroku maintenance:off --app obscure-beach-4009
+  staging:
+    branch: staging
+    commands:
+      - heroku maintenance:on --app obscure-beach-staging
+      - git push git@heroku.com:obscure-beach-staging.git $CIRCLE_SHA1:refs/heads/master
+      - heroku run rake db:migrate --app obscure-beach-staging
+      - heroku maintenance:off --app obscure-beach-staging
