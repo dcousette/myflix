@@ -20,5 +20,9 @@ c9/
 #Ignore database config for Postgres - this is different for other environments
 config/database.yml
 
-#ignore Redis database dump
+<<<<<<< HEAD
+#Ignore dump.rdb file
+=======
+#Ignore dump.rdb file
+>>>>>>> week_5B_features
 /dump.rdb
