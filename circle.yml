@@ -14,6 +14,7 @@ deployment:
     branch: staging
     commands:
       - heroku maintenance:on --app obscure-beach-staging
+      - git fetch origin --unshallow
       - git push git@heroku.com:obscure-beach-staging.git $CIRCLE_SHA1:refs/heads/master
       - heroku run rake db:migrate --app obscure-beach-staging
       - heroku maintenance:off --app obscure-beach-staging
