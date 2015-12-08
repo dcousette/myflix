@@ -62,7 +62,7 @@ describe UsersController do
     end
 
     context 'sending emails' do
-      after { ActionMailer::Base.deliveries.clear }
+      before { ActionMailer::Base.deliveries.clear }
 
       it 'sends an email to the newly created user with valid input' do
         post :create, user: Fabricate.attributes_for(:user, email_address: "john@example.com")
