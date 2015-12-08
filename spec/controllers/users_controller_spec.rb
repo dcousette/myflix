@@ -62,7 +62,7 @@ describe UsersController do
     end
 
     context 'sending emails' do
-      before { ActionMailer::Base.deliveries.clear }
+      after { ActionMailer::Base.deliveries.clear }
 
       it 'sends an email to the newly created user with valid input' do
         post :create, user: Fabricate.attributes_for(:user, email_address: "john@example.com")
@@ -75,7 +75,7 @@ describe UsersController do
       end
 
       it 'does not send an email with invalid input' do
-        post :create, user: { full_name: "Johnny Football" }
+        post :create, user: { full_name: "Johnny Football", email_address: ""} 
         expect(ActionMailer::Base.deliveries).to be_empty
       end
     end
