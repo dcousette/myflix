@@ -18,6 +18,8 @@ describe InvitationsController do
       let(:action) { post :create }
     end
 
+    after { ActionMailer::Base.deliveries.clear }
+
     context 'with valid input' do
       it 'creates an invitation' do
         set_current_user
@@ -49,8 +51,6 @@ describe InvitationsController do
     end
 
     context 'with invalid input' do
-      after { ActionMailer::Base.deliveries.clear }
-
       it 'renders the new template' do
         set_current_user
         post :create, invitation: { recipient_name: '', recipient_email: "jsmith@gmail.com", message: "This is invalid!" }
