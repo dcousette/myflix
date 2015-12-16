@@ -6,25 +6,70 @@ describe Admin::VideosController do
       let(:action) { get :new }
     end
 
+    it_behaves_like "require_admin" do
+      let(:action) { get :new }
+    end
+
     it 'sets @video to a new video' do
-      admin_user = Fabricate(:user, admin: true)
       set_current_admin
       get :new
       expect(assigns(:video)).to be_an_instance_of(Video)
     end
+  end
 
-    it 'redirects a regular user to the home page' do
-      regular_user = Fabricate(:user, admin: false)
-      set_current_user(regular_user)
-      get :new
-      expect(response).to redirect_to home_path
+  describe "POST create" do
+    it_behaves_like "require_sign_in" do
+      let(:action) { post :create }
     end
 
-    it 'sets the flash error message for regular user' do
-      regular_user = Fabricate(:user, admin: false)
-      set_current_user(regular_user)
-      get :new
-      expect(flash[:danger]).to eq("Access denied!")
+    it_behaves_like "require_admin" do
+      let(:action) { post :create }
+    end
+
+    context 'with valid input' do
+      before { set_current_admin }
+
+      it 'adds a video to the database' do
+        category = Fabricate(:category)
+        post :create, video: Fabricate.attributes_for(:video, category: category)
+        expect(category.videos.count).to eq(1)
+      end
+
+      it 'uploads a video file'
+
+      it 'it redirects to the add new videos path' do
+        post :create, video: Fabricate.attributes_for(:video)
+        expect(response).to redirect_to new_admin_video_path
+      end
+
+      it 'sets the flash success message' do
+        post :create, video: Fabricate.attributes_for(:video)
+        expect(flash[:success]).to be_present
+      end
+    end
+
+    context 'with invalid input' do
+      before { set_current_admin }
+
+      it 'does not create a video' do
+        post :create, video: { description: 'A new movie' }
+        expect(Video.first).to eq(nil)
+      end
+
+      it 'sets the flash error message' do
+        post :create, video: { description: 'A new movie' }
+        expect(flash[:danger]).to eq("Please retry your entry")
+      end
+
+      it 'renders the add new video page' do
+        post :create, video: { description: 'A new movie' }
+        expect(response).to render_template :new
+      end
+
+      it 'sets the @video variable' do
+        post :create, video: { description: 'A new movie' }
+        expect(assigns(:video)).to be_an_instance_of(Video)
+      end
     end
   end
 end
