@@ -13,3 +13,8 @@ def sign_in(a_user=nil)
   fill_in "Password", with: user.password
   click_button "Sign in"
 end
+
+def sign_out
+  click_on 'dlabel'
+  click_on 'Sign Out'
+end
