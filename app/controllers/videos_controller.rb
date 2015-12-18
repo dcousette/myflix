@@ -1,17 +1,17 @@
 class VideosController < ApplicationController
   before_action :require_login
-  
-  def index 
-    @categories = Category.all 
+
+  def index
+    @categories = Category.all
   end
 
-  def show 
+  def show
     @video = Video.find(params[:id])
     @reviews = @video.reviews
-    @review = Review.new 
-  end 
-  
-  def search 
+    @review = Review.new
+  end
+
+  def search
     @results = Video.search_by_title(params[:search_term])
   end
 end
