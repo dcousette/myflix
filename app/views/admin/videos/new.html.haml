@@ -12,7 +12,7 @@
           %fieldset.col-sm-6
             .form-group
               = f.text_field :title, label: "Title", class: "form-control"
-              = f.select :category_id, options_for_select(Category.all.map {|cat| [cat.name, cat.id]}), {}, class: 'form-control'
+              = f.select :category_id, options_for_categories, {}, class: 'form-control'
               = f.text_area :description, rows: 8, class:'form-control'
               = f.file_field :large_cover, class: 'btn btn-file'
               = f.file_field :small_cover, class: 'btn btn-file'

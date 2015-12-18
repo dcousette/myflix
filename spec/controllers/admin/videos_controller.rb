@@ -58,7 +58,7 @@ describe Admin::VideosController do
 
       it 'sets the flash error message' do
         post :create, video: { description: 'A new movie' }
-        expect(flash[:danger]).to eq("Please retry your entry")
+        expect(flash[:danger]).to be_present
       end
 
       it 'renders the add new video page' do

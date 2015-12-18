@@ -13,7 +13,7 @@ class Admin::VideosController < ApplicationController
       flash[:success] = "Your video #{@video.title} has been added"
       redirect_to new_admin_video_path
     else
-      flash[:danger] = "Please retry your entry"
+      flash.now[:danger] = "Please retry your entry"
       render :new
     end
   end
