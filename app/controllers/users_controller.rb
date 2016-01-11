@@ -12,7 +12,6 @@ class UsersController < ApplicationController
       handle_invitation
 
       Stripe.api_key = ENV['STRIPE_API_KEY']
-
       begin
         charge = Stripe::Charge.create(
           :amount => 999,
@@ -21,7 +20,7 @@ class UsersController < ApplicationController
           :description => "One year Myflix subscription for #{@user.email_address}."
         )
       rescue Stripe::CardError => e
-        # The card has been declined
+        flash.now[:danger] = e.message
       end
 
       AppMailer.delay.send_welcome_email(@user)
