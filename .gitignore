@@ -26,3 +26,6 @@ config/database.yml
 #Ignore dump.rdb file
 >>>>>>> week_5B_features
 /dump.rdb
+
+# Ignore application configuration
+/config/application.yml
