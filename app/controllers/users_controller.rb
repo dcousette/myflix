@@ -14,10 +14,10 @@ class UsersController < ApplicationController
       Stripe.api_key = ENV['STRIPE_API_KEY']
       begin
         charge = Stripe::Charge.create(
-          :amount => 999,
-          :currency => "usd",
-          :source => params[:stripeToken],
-          :description => "One year Myflix subscription for #{@user.email_address}."
+          amount: 999,
+          currency: "usd",
+          source: params[:stripeToken],
+          description: "One year Myflix subscription for #{@user.email_address}."
         )
       rescue Stripe::CardError => e
         flash.now[:danger] = e.message
