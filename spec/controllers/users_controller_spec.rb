@@ -9,6 +9,10 @@ describe UsersController do
   end
 
   describe 'POST create' do
+    before do
+      StripeWrapper::Charge.stub(:create)
+    end 
+
     context 'with valid input' do
       let(:alice) { Fabricate(:user) }
       let(:invitation) { Fabricate(:invitation, inviter: alice,
@@ -75,7 +79,7 @@ describe UsersController do
       end
 
       it 'does not send an email with invalid input' do
-        post :create, user: { full_name: "Johnny Football", email_address: ""} 
+        post :create, user: { full_name: "Johnny Football", email_address: ""}
         expect(ActionMailer::Base.deliveries).to be_empty
       end
     end

@@ -10,7 +10,14 @@ class UsersController < ApplicationController
 
     if @user.save
       handle_invitation
-      StripeWrapper::Charge.create()
+      
+      Stripe.api_key = ENV['STRIPE_API_KEY']
+      token = params[:stripeToken]
+      StripeWrapper::Charge.create(
+        amount: 999,
+        source: token,
+        description: "Subscription fee for #{@user.email_address}"
+      )
       AppMailer.delay.send_welcome_email(@user)
       redirect_to signin_path
     else
