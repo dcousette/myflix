@@ -4,8 +4,6 @@ describe StripeWrapper do
   describe StripeWrapper::Charge do
     describe ".create" do
       it "makes a successful charge", :vcr do
-        Stripe.api_key = ENV['STRIPE_API_KEY']
-
         VCR.use_cassette('create_stripe_charge') do
           token = Stripe::Token.create(
             :card => {
@@ -18,12 +16,53 @@ describe StripeWrapper do
 
           response = StripeWrapper::Charge.create(
             amount: 999,
-            card: token,
+            source: token,
             description: 'a valid charge'
           )
 
-          expect(response.amount).to eq(999)
-          expect(response.currency).to eq('usd')
+          expect(response.successful?).to be_truthy
+        end
+      end
+
+      it "makes a card declined charge" do
+        VCR.use_cassette('declined_charge') do
+          token = Stripe::Token.create(
+            :card => {
+              :number => "4000000000000002",
+              :exp_month => 1,
+              :exp_year => 2017,
+              :cvc => "314"
+            },
+          ).id
+
+          response = StripeWrapper::Charge.create(
+            amount: 999,
+            source: token,
+            description: 'an invalid charge'
+          )
+
+          expect(response.successful?).to be_falsey
+        end
+      end
+
+      it "returns the error message for a declined charge", :vcr do
+        VCR.use_cassette('declined_charge') do
+          token = Stripe::Token.create(
+            :card => {
+              :number => "4000000000000002",
+              :exp_month => 1,
+              :exp_year => 2017,
+              :cvc => "314"
+            },
+          ).id
+
+          response = StripeWrapper::Charge.create(
+            amount: 999,
+            source: token,
+            description: 'an invalid charge'
+          )
+
+          expect(response.error_message).to be_present
         end
       end
     end
