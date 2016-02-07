@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 feature "Invite a user" do
-  scenario "User successfully sends and accepts an invitation" do
+  scenario "User successfully sends and accepts an invitation", { js: true } do
     VCR.use_cassette('create_stripe_charge') do
       john = Fabricate(:user)
       sign_in(john)
@@ -24,6 +24,7 @@ feature "Invite a user" do
       select "2017", from: "date_year"
       click_on "Sign Up"
 
+      visit signin_path 
       fill_in "Email Address", with: 'jsmith@gmail.com'
       fill_in "Password", with: 'jsmith'
       click_on "Sign in"
@@ -34,7 +35,7 @@ feature "Invite a user" do
       click_on "Sign Out"
 
       sign_in(john)
-      click_on "People"
+      click_link "People"
       expect(page).to have_content 'Joe Smith'
       clear_emails
     end
