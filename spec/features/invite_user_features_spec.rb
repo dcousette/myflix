@@ -24,12 +24,12 @@ feature "Invite a user" do
       select "2017", from: "date_year"
       click_on "Sign Up"
 
-      visit signin_path 
+      visit signin_path
       fill_in "Email Address", with: 'jsmith@gmail.com'
       fill_in "Password", with: 'jsmith'
       click_on "Sign in"
 
-      click_on "People"
+      click_on 'People'
       expect(page).to have_content john.full_name
       click_on "Welcome, Joe Smith"
       click_on "Sign Out"

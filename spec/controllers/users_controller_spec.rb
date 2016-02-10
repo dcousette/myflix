@@ -9,7 +9,7 @@ describe UsersController do
   end
 
   describe 'POST create' do
-    context 'with valid input' do
+    context 'with valid personal info and valid card' do
       let(:charge) { double(:charge, successful?: true) }
       let(:alice) { Fabricate(:user) }
       let(:invitation) { Fabricate(:invitation, inviter: alice,
@@ -48,7 +48,7 @@ describe UsersController do
       end
     end
 
-    context 'with valid personal information and a declined credit card' do
+    context 'with valid personal information and declined credit card' do
       let(:charge) { double(:charge, successful?: false, error_message: 'Your card was declined') }
       before { StripeWrapper::Charge.should_receive(:create).and_return(charge) }
 
