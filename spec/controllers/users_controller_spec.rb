@@ -16,6 +16,7 @@ describe UsersController do
                               recipient_email: 'joe@example.com') }
 
       before { StripeWrapper::Charge.should_receive(:create).and_return(charge) }
+      after { ActionMailer::Base.deliveries.clear }
 
       it 'creates the user' do
         post :create, user: Fabricate.attributes_for(:user)
@@ -79,12 +80,8 @@ describe UsersController do
         expect(response).to render_template :new
       end
 
-      it 'does not charge the card' do
-        post :create, user: {password:'dcousette', full_name:'DeShawn Cousette'}
-      end
-
       it 'does not send an email with invalid input' do
-        post :create, user: { full_name: "Johnny Football", email_address: ""}
+        post :create, user: { full_name: "Johnny Football", email_address: "" }
         expect(ActionMailer::Base.deliveries).to be_empty
       end
     end
