@@ -18,3 +18,11 @@ def sign_out
   click_on 'dlabel'
   click_on 'Sign Out'
 end
+
+def submit_credit_card(number)
+  fill_in 'Credit Card Number', with: number
+  fill_in 'Security Code', with: '123'
+  select '1 - January', from: 'date_month'
+  select '2017', from: 'date_year'
+  click_on 'Sign Up'
+end
