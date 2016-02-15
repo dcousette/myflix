@@ -5,7 +5,7 @@ http_interactions:
     uri: https://api.stripe.com/v1/charges
     body:
       encoding: US-ASCII
-      string: amount=999&currency=usd&description=Subscription+fee+for+jsmith%40gmail.com&source=tok_17dnqHFvLN3VTDgcTaSc1WW6
+      string: amount=999&currency=usd&description=Subscription+fee+for+jsmith%40gmail.com&source=tok_17eeTrFvLN3VTDgcgvUN3dUk
     headers:
       Accept:
       - "*/*; q=0.5, application/xml"
@@ -19,8 +19,8 @@ http_interactions:
       - application/x-www-form-urlencoded
       X-Stripe-Client-User-Agent:
       - '{"bindings_version":"1.31.0","lang":"ruby","lang_version":"2.1.7 p400 (2015-08-18)","platform":"x86_64-darwin14.0","engine":"ruby","publisher":"stripe","uname":"Darwin
-        DeShawns-MacBook-Pro.local 14.4.0 Darwin Kernel Version 14.4.0: Thu May 28
-        11:35:04 PDT 2015; root:xnu-2782.30.5~1/RELEASE_X86_64 x86_64","hostname":"DeShawns-MacBook-Pro.local"}'
+        DeShawns-MBP 14.4.0 Darwin Kernel Version 14.4.0: Thu May 28 11:35:04 PDT
+        2015; root:xnu-2782.30.5~1/RELEASE_X86_64 x86_64","hostname":"DeShawns-MBP"}'
       Content-Length:
       - '111'
   response:
@@ -31,7 +31,7 @@ http_interactions:
       Server:
       - nginx
       Date:
-      - Fri, 12 Feb 2016 20:48:42 GMT
+      - Mon, 15 Feb 2016 05:01:04 GMT
       Content-Type:
       - application/json
       Content-Length:
@@ -49,7 +49,7 @@ http_interactions:
       Cache-Control:
       - no-cache, no-store
       Request-Id:
-      - req_7tb2hvSSvVqGmz
+      - req_7uTQRVx1S0HTfN
       Stripe-Version:
       - '2015-10-16'
       Strict-Transport-Security:
@@ -58,14 +58,14 @@ http_interactions:
       encoding: UTF-8
       string: |
         {
-          "id": "ch_17dnqIFvLN3VTDgctgftumHE",
+          "id": "ch_17eeTsFvLN3VTDgc4mbzNX1M",
           "object": "charge",
           "amount": 999,
           "amount_refunded": 0,
           "application_fee": null,
-          "balance_transaction": "txn_17dnqIFvLN3VTDgczGREHv4w",
+          "balance_transaction": "txn_17eeTsFvLN3VTDgclzWm0SW5",
           "captured": true,
-          "created": 1455310122,
+          "created": 1455512464,
           "currency": "usd",
           "customer": null,
           "description": "Subscription fee for jsmith@gmail.com",
@@ -87,11 +87,11 @@ http_interactions:
             "data": [],
             "has_more": false,
             "total_count": 0,
-            "url": "/v1/charges/ch_17dnqIFvLN3VTDgctgftumHE/refunds"
+            "url": "/v1/charges/ch_17eeTsFvLN3VTDgc4mbzNX1M/refunds"
           },
           "shipping": null,
           "source": {
-            "id": "card_17dnqHFvLN3VTDgc33b3rxw8",
+            "id": "card_17eeTrFvLN3VTDgcOx2GxMYl",
             "object": "card",
             "address_city": null,
             "address_country": null,
@@ -119,5 +119,5 @@ http_interactions:
           "status": "succeeded"
         }
     http_version: 
-  recorded_at: Fri, 12 Feb 2016 20:48:42 GMT
+  recorded_at: Mon, 15 Feb 2016 05:01:04 GMT
 recorded_with: VCR 3.0.1

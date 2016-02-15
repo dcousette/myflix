@@ -2,34 +2,21 @@ require 'spec_helper'
 
 feature "Invite a user" do
   scenario "User successfully sends and accepts an invitation", { js: true } do
-    VCR.use_cassette('invite_stripe_charge') do
+    VCR.use_cassette('accept_invite_and_charge_card') do
       john = Fabricate(:user)
       sign_in(john)
+
       send_invitation(john)
-      click_on "Welcome, #{john.full_name}"
-      click_on "Sign Out"
+      friend_accepts_invitation
+      friend_signs_in
 
-      open_email('jsmith@gmail.com')
-      current_email.click_on "Accept this invitation"
-      fill_in "Password", with: 'jsmith'
-      fill_in "Full Name", with: 'Joe Smith'
+      friend_should_follow(john)
+      inviter_should_follow_friend(john)
 
-      submit_credit_card('4242424242424242')
-
-      fill_in "Email Address", with: 'jsmith@gmail.com'
-      fill_in "Password", with: 'jsmith'
-      click_on "Sign in"
-      #user is not signing in as expected -- how to fix?
-      require 'pry'; binding.pry 
-
-      click_on 'People'
-      expect(page).to have_content john.full_name
-      click_on "Welcome, Joe Smith"
-      click_on "Sign Out"
-
-      sign_in(john)
-      click_link "People"
-      expect(page).to have_content 'Joe Smith'
+      # save_and_open_page shows user is not signing in as expected
+      # getting incorrect username and password error message
+      # when using pry the user is saved to the db
+      # capybara env is a diff db?? how to access??
       clear_emails
     end
   end
@@ -51,5 +38,36 @@ feature "Invite a user" do
     fill_in "Friend's Name", with: 'Joe Smith'
     fill_in "Friend's Email Address", with: 'jsmith@gmail.com'
     click_on "Send invitation"
+    click_on "Welcome, #{user.full_name}"
+    click_on "Sign Out"
+  end
+
+  def friend_accepts_invitation
+    open_email('jsmith@gmail.com')
+    current_email.click_on "Accept this invitation"
+    fill_in "Password", with: 'jsmith'
+    fill_in "Full Name", with: 'Joe Smith'
+    submit_credit_card('4242424242424242')
+  end
+
+  def friend_signs_in
+    fill_in "Email Address", with: 'jsmith@gmail.com'
+    fill_in "Password", with: 'jsmith'
+    click_on "Sign in"
+  end
+
+  def friend_should_follow(user)
+    click_on 'People'
+    expect(page).to have_content user.full_name
+    click_on "Welcome, Joe Smith"
+    click_on "Sign Out"
+  end
+
+  def inviter_should_follow_friend(inviter)
+    sign_in(inviter)
+    click_link "People"
+    expect(page).to have_content 'Joe Smith'
+    click_on "Welcome, #{inviter.full_name}"
+    click_on "Sign Out"
   end
 end
