@@ -20,7 +20,7 @@ describe StripeWrapper do
             description: 'a valid charge'
           )
 
-          expect(response.successful?).to be_truthy
+          expect(response).to be_successful
         end
       end
 
@@ -41,7 +41,7 @@ describe StripeWrapper do
             description: 'an invalid charge'
           )
 
-          expect(response.successful?).to be_falsey
+          expect(response).not_to be_successful
         end
       end
 

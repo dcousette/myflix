@@ -15,7 +15,7 @@ describe UsersController do
       let(:invitation) { Fabricate(:invitation, inviter: alice,
                               recipient_email: 'joe@example.com') }
 
-      before { StripeWrapper::Charge.should_receive(:create).and_return(charge) }
+      before { expect(StripeWrapper::Charge).to receive(:create).and_return(charge) }
       after { ActionMailer::Base.deliveries.clear }
 
       it 'creates the user' do
@@ -51,7 +51,7 @@ describe UsersController do
 
     context 'with valid personal information and declined credit card' do
       let(:charge) { double(:charge, successful?: false, error_message: 'Your card was declined') }
-      before { StripeWrapper::Charge.should_receive(:create).and_return(charge) }
+      before { expect(StripeWrapper::Charge).to receive(:create).and_return(charge) }
 
       it 'does not create a new user' do
         post :create, user: Fabricate.attributes_for(:user), stripeToken: '123321'
