@@ -13,10 +13,6 @@ feature "Invite a user" do
       friend_should_follow(john)
       inviter_should_follow_friend(john)
 
-      # save_and_open_page shows user is not signing in as expected
-      # getting incorrect username and password error message
-      # when using pry the user is saved to the db
-      # capybara env is a diff db?? how to access??
       clear_emails
     end
   end
@@ -48,6 +44,7 @@ feature "Invite a user" do
     fill_in "Password", with: 'jsmith'
     fill_in "Full Name", with: 'Joe Smith'
     submit_credit_card('4242424242424242')
+    sleep 1
   end
 
   def friend_signs_in
