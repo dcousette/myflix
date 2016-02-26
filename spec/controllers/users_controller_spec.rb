@@ -9,96 +9,28 @@ describe UsersController do
   end
 
   describe 'POST create' do
-    context 'with valid personal info and valid card' do
-      let(:charge) { double(:charge, successful?: true) }
-      let(:alice) { Fabricate(:user) }
-      let(:invitation) { Fabricate(:invitation, inviter: alice,
-                              recipient_email: 'joe@example.com') }
-
-      before { expect(StripeWrapper::Charge).to receive(:create).and_return(charge) }
-      after { ActionMailer::Base.deliveries.clear }
-
-      it 'creates the user' do
-        post :create, user: Fabricate.attributes_for(:user)
-        expect(User.count).to eq(1)
-      end
-
+    context 'successful user sign up' do
       it 'redirects to the sign in page' do
+        result = double(:sign_up_result, successful?: true)
+        UserSignUp.any_instance.should_receive(:sign_up).and_return(result)
         post :create, user: Fabricate.attributes_for(:user)
         expect(response).to redirect_to signin_path
       end
-
-      it 'makes the user follow the inviter' do
-        post :create, user: { email_address: 'joe@example.com', password: 'mypassword',
-                              full_name: 'Joe Blow' }, invitation_token: invitation.token
-        joe = User.find_by(email_address: 'joe@example.com')
-        expect(joe.follows?(alice)).to be_truthy
-      end
-
-      it 'makes the inviter follow the user' do
-        post :create, user: { email_address: 'joe@example.com', password: 'mypassword',
-                              full_name: 'Joe Blow' }, invitation_token: invitation.token
-        joe = User.find_by(email_address: 'joe@example.com')
-        expect(alice.follows?(joe)).to be_truthy
-      end
-
-      it 'expires the invitation after acceptance' do
-        post :create, user: { email_address: 'joe@example.com', password: 'mypassword',
-                              full_name: 'Joe Blow' }, invitation_token: invitation.token
-        expect(invitation.reload.token).to be_nil
-      end
     end
 
-    context 'with valid personal information and declined credit card' do
-      let(:charge) { double(:charge, successful?: false, error_message: 'Your card was declined') }
-      before { expect(StripeWrapper::Charge).to receive(:create).and_return(charge) }
-
-      it 'does not create a new user' do
-        post :create, user: Fabricate.attributes_for(:user), stripeToken: '123321'
-        expect(User.count).to eq(0)
-      end
-
+    context 'failed user sign up' do
       it 'sets the flash error message' do
+        result = double(:sign_up_result, successful?: false, error_message: "This is an error message.")
+        UserSignUp.any_instance.should_receive(:sign_up).and_return(result)
         post :create, user: Fabricate.attributes_for(:user), stripeToken: '123321'
         expect(flash[:danger]).to be_present
       end
 
       it 'renders the new template' do
+        result = double(:sign_up_result, successful?: false, error_message: "This is an error message.")
+        UserSignUp.any_instance.should_receive(:sign_up).and_return(result)
         post :create, user: Fabricate.attributes_for(:user), stripeToken: '123321'
         expect(response).to render_template :new
-      end
-    end
-
-    context 'with invalid input' do
-      it 'does not create the user' do
-        post :create, user: {password:'dcousette', full_name:'DeShawn Cousette'}
-        expect(User.count).to eq(0)
-      end
-
-      it 'renders the :new template' do
-        post :create, user: {password:'dcousette', full_name:'DeShawn Cousette'}
-        expect(response).to render_template :new
-      end
-
-      it 'does not send an email with invalid input' do
-        post :create, user: { full_name: "Johnny Football", email_address: "" }
-        expect(ActionMailer::Base.deliveries).to be_empty
-      end
-    end
-
-    context 'sending emails' do
-      before { StripeWrapper::Charge.should_receive(:create).and_return(charge) }
-      let(:charge) { double(:charge, successful?: true) }
-      after { ActionMailer::Base.deliveries.clear }
-
-      it 'sends an email to the newly created user with valid input' do
-        post :create, user: Fabricate.attributes_for(:user, email_address: "john@example.com")
-        expect(ActionMailer::Base.deliveries.last.to).to eq(["john@example.com"])
-      end
-
-      it 'sends an email containing the users name with valid input' do
-        post :create, user: Fabricate.attributes_for(:user, full_name: "Johnny Football")
-        expect(ActionMailer::Base.deliveries.last.body).to include("Johnny Football")
       end
     end
   end
