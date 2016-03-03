@@ -12,7 +12,7 @@ describe UsersController do
     context 'successful user sign up' do
       it 'redirects to the sign in page' do
         result = double(:sign_up_result, successful?: true)
-        UserSignUp.any_instance.should_receive(:sign_up).and_return(result)
+        expect_any_instance_of(UserSignUp).to receive(:sign_up).and_return(result)
         post :create, user: Fabricate.attributes_for(:user)
         expect(response).to redirect_to signin_path
       end

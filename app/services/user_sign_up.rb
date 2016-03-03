@@ -31,7 +31,7 @@ class UserSignUp
   end
 
   def successful?
-    @status = :success
+    @status == :success
   end
 
   private
