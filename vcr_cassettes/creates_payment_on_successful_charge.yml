@@ -1,0 +1,134 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.stripe.com/v1/events/evt_1855LzFvLN3VTDgcVXS5J9d5
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - "*/*; q=0.5, application/xml"
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - Stripe/v1 RubyBindings/1.31.0
+      Authorization:
+      - Bearer sk_test_0vdTk4grYlkcId7ty2LaDrpO
+      Content-Type:
+      - application/x-www-form-urlencoded
+      X-Stripe-Client-User-Agent:
+      - '{"bindings_version":"1.31.0","lang":"ruby","lang_version":"2.1.7 p400 (2015-08-18)","platform":"x86_64-darwin14.0","engine":"ruby","publisher":"stripe","uname":"Darwin
+        DeShawns-MBP 14.4.0 Darwin Kernel Version 14.4.0: Thu May 28 11:35:04 PDT
+        2015; root:xnu-2782.30.5~1/RELEASE_X86_64 x86_64","hostname":"DeShawns-MBP"}'
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx
+      Date:
+      - Thu, 28 Apr 2016 04:35:54 GMT
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '2046'
+      Connection:
+      - keep-alive
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Allow-Methods:
+      - GET, POST, HEAD, OPTIONS, DELETE
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Max-Age:
+      - '300'
+      Cache-Control:
+      - no-cache, no-store
+      Request-Id:
+      - req_8LoVpm2IcBuljE
+      Stripe-Version:
+      - '2015-10-16'
+      Strict-Transport-Security:
+      - max-age=31556926; includeSubDomains
+    body:
+      encoding: UTF-8
+      string: |
+        {
+          "id": "evt_1855LzFvLN3VTDgcVXS5J9d5",
+          "object": "event",
+          "api_version": "2015-10-16",
+          "created": 1461812291,
+          "data": {
+            "object": {
+              "id": "ch_1855LzFvLN3VTDgcy8fYuU52",
+              "object": "charge",
+              "amount": 999,
+              "amount_refunded": 0,
+              "application_fee": null,
+              "balance_transaction": "txn_1855LzFvLN3VTDgcuPyE2vOn",
+              "captured": true,
+              "created": 1461812291,
+              "currency": "usd",
+              "customer": "cus_8LmvPxgHFtMN9I",
+              "description": null,
+              "destination": null,
+              "dispute": null,
+              "failure_code": null,
+              "failure_message": null,
+              "fraud_details": {},
+              "invoice": "in_1855LzFvLN3VTDgc8FBk46Op",
+              "livemode": false,
+              "metadata": {},
+              "order": null,
+              "paid": true,
+              "receipt_email": null,
+              "receipt_number": null,
+              "refunded": false,
+              "refunds": {
+                "object": "list",
+                "data": [],
+                "has_more": false,
+                "total_count": 0,
+                "url": "/v1/charges/ch_1855LzFvLN3VTDgcy8fYuU52/refunds"
+              },
+              "shipping": null,
+              "source": {
+                "id": "card_1855LwFvLN3VTDgc9D9sU0D5",
+                "object": "card",
+                "address_city": null,
+                "address_country": null,
+                "address_line1": null,
+                "address_line1_check": null,
+                "address_line2": null,
+                "address_state": null,
+                "address_zip": null,
+                "address_zip_check": null,
+                "brand": "Visa",
+                "country": "US",
+                "customer": "cus_8LmvPxgHFtMN9I",
+                "cvc_check": "pass",
+                "dynamic_last4": null,
+                "exp_month": 5,
+                "exp_year": 2017,
+                "fingerprint": "sEwzRtht8iK2udxn",
+                "funding": "credit",
+                "last4": "4242",
+                "metadata": {},
+                "name": null,
+                "tokenization_method": null
+              },
+              "source_transfer": null,
+              "statement_descriptor": "MyFlix Base Plan 2",
+              "status": "succeeded"
+            }
+          },
+          "livemode": false,
+          "pending_webhooks": 0,
+          "request": "req_8LmvxfqIEL2pwN",
+          "type": "charge.succeeded"
+        }
+    http_version: 
+  recorded_at: Thu, 28 Apr 2016 04:35:54 GMT
+recorded_with: VCR 3.0.1

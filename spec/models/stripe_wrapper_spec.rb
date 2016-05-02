@@ -94,6 +94,17 @@ describe StripeWrapper do
           expect(response.error_message).to be_present
         end
       end
+
+      it 'returns the customer token from stripe with a valid charge' do
+        VCR.use_cassette('returns_customer_token_for_valid_charge') do
+          alice = Fabricate(:user)
+          response = StripeWrapper::Customer.create(
+            user: alice,
+            card: valid_token
+          )
+          expect(response.customer_token).to be_present 
+        end
+      end
     end
   end
 end

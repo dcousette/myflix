@@ -3,7 +3,7 @@ require 'spec_helper'
 describe UserSignUp do
   describe '#sign_up' do
     context 'valid personal info and valid card' do
-      let(:customer) { double(:customer, successful?: true) }
+      let(:customer) { double(:customer, successful?: true, customer_token: 'abcdefg') }
       let(:alice) { Fabricate(:user) }
       let(:invitation) { Fabricate(:invitation, inviter: alice,
                               recipient_email: 'joe@example.com') }
@@ -21,6 +21,11 @@ describe UserSignUp do
                                        full_name: 'Joe Blow')).sign_up("stripe token", invitation.token)
         joe = User.find_by(email_address: 'joe@example.com')
         expect(joe.follows?(alice)).to be_truthy
+      end
+
+      it 'stores the customer token from stripe' do
+        UserSignUp.new(Fabricate.build(:user)).sign_up("stripe token", nil)
+        expect(User.first.customer_token).to eq('abcdefg')
       end
 
       it 'makes the inviter follow the user' do
