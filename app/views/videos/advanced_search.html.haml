@@ -5,26 +5,25 @@
     .form-group
       .col-sm-6
         = search_field_tag :query, params[:query], class: 'form-control', placeholder: "Search videos by title, description"
-    /
-      .form-group
-        .col-sm-6
-          .checkbox
-            %label
-              %input(type="checkbox") Include Reviews
-      .form-group
-        .row.average_rating_label Average Rating
-        %label.col-sm-1.control-label(for="rating_from") From:
-        .col-sm-2
-          %select.form-control(id="rating_from")
-            %option -
-            - (10..50).map { |num| num / 10.0 }.each do |number|
-              %option{ value: number }= number
-        %label.col-sm-1.control-label(for="rating_to") To:
-        .col-sm-2
-          %select.form-control(id="rating_to")
-            %option -
-            - (10..50).map { |num| num / 10.0 }.each do |number|
-              %option{ value: number }= number
+
+    .form-group
+      .col-sm-6
+        .checkbox
+          %label
+            = check_box_tag :reviews, 'y', params[:reviews] == 'y'
+            Include Reviews
+    .form-group
+      .row.average_rating_label Average Rating
+      = label_tag :rating_from, "From:", class: "col-sm-1 control-label"
+      .col-sm-2
+        = select_tag :rating_from, options_for_select((10..50).map {|num| num / 10.0},
+        params[:rating_from]), prompt: "-", class: 'form-control'
+
+      = label_tag :rating_to, "To:", class: "col-sm-1 control-label"
+      .col-sm-2
+        = select_tag :rating_to, options_for_select((10..50).map {|num| num / 10.0},
+        params[:rating_to]), prompt: "-", class: 'form-control'
+
     .form-group
       .col-sm-6
         = button_tag(type: "submit", class: "btn btn-primary") do
@@ -42,10 +41,9 @@
             %header
               %h3= video.title
             %p.video_description= video.description
-            /
-              %hr
-              .details
-                %span.average_rating Average rating: 3.5
-                %span.reviews_count 5 reviews
-              %footer.video_review
-                In nulla hendrerit. Vestibulum volutpat orci varius, euismod quis nunc mattis malesuada, quis nulla tortor lacinia id vestibulum, mattis venenatis sed integer. Lorem ipsum dolor sit amet, qui risus mus aliquet alias, placerat volutpat consequat turpis vivamus quis...
+            %hr
+            .details
+              %span.average_rating Average rating: 3.5
+              %span.reviews_count 5 reviews
+            %footer.video_review
+              In nulla hendrerit. Vestibulum volutpat orci varius, euismod quis nunc mattis malesuada, quis nulla tortor lacinia id vestibulum, mattis venenatis sed integer. Lorem ipsum dolor sit amet, qui risus mus aliquet alias, placerat volutpat consequat turpis vivamus quis...
