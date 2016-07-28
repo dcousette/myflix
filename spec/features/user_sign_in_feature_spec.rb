@@ -4,7 +4,7 @@ feature "user signs in" do
   scenario "with valid email and password" do
     alice = Fabricate(:user)
     sign_in(alice)
-    expect(page).to have_no_content(alice.full_name)
+    expect(page).to have_content(alice.full_name)
   end
 
   scenario "with deactivated user" do
