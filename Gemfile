@@ -23,6 +23,8 @@ gem 'stripe'
 gem 'stripe_event'
 gem 'figaro'
 gem 'draper', '~> 1.3'
+gem 'elasticsearch-model'
+gem 'elasticsearch-rails'
 
 group :development do
   gem 'thin'
@@ -34,8 +36,6 @@ group :development, :test do
   gem 'pry'
   gem 'pry-nav'
   gem 'rspec-rails', '2.99'
-  gem 'elasticsearch-model'
-  gem 'elasticsearch-rails'
 end
 
 group :test do
