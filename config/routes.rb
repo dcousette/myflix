@@ -18,6 +18,7 @@ Myflix::Application.routes.draw do
 
     collection do
       post 'search'
+      get 'advanced_search', to: 'videos#advanced_search', as: "advanced_search"
     end
   end
 
@@ -35,5 +36,8 @@ Myflix::Application.routes.draw do
 
   namespace :admin do
     resources :videos, only: [:new, :create]
+    resources :payments, only: [:index]
   end
+
+  mount StripeEvent::Engine, at: '/stripe_events'
 end

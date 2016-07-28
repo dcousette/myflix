@@ -17,11 +17,4 @@ class ApplicationController < ActionController::Base
       redirect_to signin_path
     end
   end
-
-  def require_admin
-    if !current_user.admin?
-      flash[:danger] = "Access denied!"
-      redirect_to home_path
-    end
-  end
 end

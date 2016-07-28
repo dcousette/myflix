@@ -42,4 +42,8 @@ class User < ActiveRecord::Base
     self.follow(user)
     user.follow(self)
   end
+
+  def deactivate!
+    update_attribute(:active, false) 
+  end
 end
